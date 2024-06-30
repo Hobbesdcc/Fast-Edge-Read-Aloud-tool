@@ -14,7 +14,14 @@
 document.getElementById('myForm').addEventListener('submit', function(event) {
   event.preventDefault(); // Prevent the form from submitting
   var textBoxValue = document.getElementById('myTextBox').value;
-  document.getElementById('myParagraph').innerText = textBoxValue;
+  
+  // Split the text into paragraphs based on line breaks
+  var paragraphs = textBoxValue.split('\n');
+  var formattedText = paragraphs.map(function(paragraph) {
+    return '<p>' + paragraph + '</p>';
+  }).join('');
+  
+  document.getElementById('myParagraph').innerHTML = formattedText;
 });
 </script>
 
