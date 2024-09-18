@@ -5,37 +5,37 @@
 <form id="myForm">
   <textarea id="myTextBox" name="myTextBox" rows="15" cols="120"></textarea>
   <br>
-  <input type="submit" value="Submit">
-  <button type="button" id="removeLineBreaksButton">Remove Line Breaks</button>
+  <input type="submit" value="Submit" id="submitButton">
+  <input type="submit" value="Remove Line Breaks" id="removeLineBreaksButton">
 </form>
 
-<p id="myParagraph">Simple MS Edge Read Aloud text tool.<BR>This text will be replaced once you submit.<BR> Then you can use the read aloud feature.<BR> Use Ctrl+Shift+U, or right click "read aloud" to start it. </p>
+<p id="myParagraph">Simple MS Edge Read Aloud text tool.<br>This text will be replaced once you submit.<br> Then you can use the read aloud feature.<br> Use Ctrl+Shift+U, or right click "read aloud" to start it. </p>
 
 <script>
-
-   //Script - Submit Button (also split the text into paragraphs based on line breaks)
+  // Script - Submit Button (also split the text into paragraphs based on line breaks)
   document.getElementById('myForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting
     var textBoxValue = document.getElementById('myTextBox').value;
     
-    // Split the text into paragraphs based on line breaks
-    var paragraphs = textBoxValue.split('\n');
-    var formattedText = paragraphs.map(function(paragraph) {
-      return '<p>' + paragraph + '</p>';
-    }).join('');
-    
-    document.getElementById('myParagraph').innerHTML = formattedText;
-  });
 
-  // Script - Button to Remove line breaks and replace double spaces with single space
-  document.getElementById('removeLineBreaksButton').addEventListener('click', function() {
-    var textBoxValue = document.getElementById('myTextBox').value;
-    textBoxValue = textBoxValue.replace(/[\r\n]+/g, ' '); // Remove line breaks
-    textBoxValue = textBoxValue.replace(/ {2,}/g, ' '); // Replace multiple spaces with a single space
-    
-    document.getElementById('myTextBox').value = textBoxValue;
-  });
+    //Deside what button is pressed (used so the buttons can be input type="submit", so read aloud wont read the button text each time)
+    if (event.submitter.id === 'submitButton') {
+      // Split the text into paragraphs based on line breaks
+      var paragraphs = textBoxValue.split('\n');
+      var formattedText = paragraphs.map(function(paragraph) {
+        return '<p>' + paragraph + '</p>';
+      }).join('');
+      
+      document.getElementById('myParagraph').innerHTML = formattedText;
 
+    } else if (event.submitter.id === 'removeLineBreaksButton') {
+      // Remove line breaks and replace double spaces with single space
+      textBoxValue = textBoxValue.replace(/[\r\n]+/g, ' '); // Remove line breaks
+      textBoxValue = textBoxValue.replace(/ {2,}/g, ' ');   // Replace multiple spaces with a single space
+      
+      document.getElementById('myTextBox').value = textBoxValue;
+    }
+  });
 </script>
 
 </body>
