@@ -3,7 +3,7 @@
 <body style="background-color:#feefc3;">
 
 <form id="myForm">
-  <textarea id="myTextBox" name="myTextBox" rows="10" cols="150"></textarea>
+  <textarea id="myTextBox" name="myTextBox" rows="15" cols="120"></textarea>
   <br>
   <input type="submit" value="Submit">
   <button type="button" id="removeLineBreaksButton">Remove Line Breaks</button>
@@ -27,10 +27,11 @@
     document.getElementById('myParagraph').innerHTML = formattedText;
   });
 
-  //Script - Button to Remove line breaks
+  // Script - Button to Remove line breaks and replace double spaces with single space
   document.getElementById('removeLineBreaksButton').addEventListener('click', function() {
     var textBoxValue = document.getElementById('myTextBox').value;
-    textBoxValue = textBoxValue.replace(/[\r\n]+/g, ' ');
+    textBoxValue = textBoxValue.replace(/[\r\n]+/g, ' '); // Remove line breaks
+    textBoxValue = textBoxValue.replace(/ {2,}/g, ' '); // Replace multiple spaces with a single space
     
     document.getElementById('myTextBox').value = textBoxValue;
   });
